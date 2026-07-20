@@ -48,13 +48,31 @@ Each section has side-by-side EN/ID columns with per-field sync buttons (→ cop
 
 ## Docker
 
+Build and run with a single command (reads `.env` automatically):
+
+```bash
+# buat .env dulu, lalu:
+docker compose up -d
+```
+
+`.env` minimal:
+
+```env
+ADMIN_PASSWORD=yourpassword
+SESSION_SECRET=randomstring
+```
+
+DB dan data lain tersimpan di Docker volume `portfolio_data`, persist meski container dihapus.
+
+### Manual (tanpa compose)
+
 ```bash
 docker build -t portfolio .
 docker run -d \
   -p 3000:3000 \
   -e ADMIN_PASSWORD=yourpassword \
   -e SESSION_SECRET=randomstring \
-  -v /host/path/to/data:/app/data \
+  -v portfolio_data:/app/data \
   portfolio
 ```
 
