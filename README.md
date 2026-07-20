@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Afad Fath
 
-## Getting Started
+Persona 5–inspired portfolio with bilingual support and a self-hosted admin panel.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack, standalone output)
+- **Language:** TypeScript
+- **Styling:** Plain CSS (no Tailwind) — design tokens as CSS custom properties
+- **Database:** SQLite via `better-sqlite3`, single `data/portfolio.db`
+- **Auth:** HMAC-SHA256 signed cookie, Web Crypto (Edge) + Node.js crypto (Server Actions)
+- **Fonts:** Archivo Black (display) + Space Grotesk (body) via `next/font/google`
+- **Deployment:** Docker (multi-stage, standalone build)
+
+## Quick Start
 
 ```bash
+# copy env template
+cp .env.example .env.local
+
+# fill credentials
+ADMIN_PASSWORD=yourpassword
+SESSION_SECRET=randomstring
+
+# install & dev
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `ADMIN_PASSWORD` | Yes | — | Password for admin login |
+| `SESSION_SECRET` | Yes | `ADMIN_PASSWORD` | HMAC signing key for session cookie |
+| `DB_PATH` | No | `data/portfolio.db` | SQLite file path |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Admin Panel
 
-## Learn More
+Located at `/admin`. Login with `ADMIN_PASSWORD`. Sections:
 
-To learn more about Next.js, take a look at the following resources:
+- **Hero** — greeting, tagline, sub, image URL
+- **About** — title, heading, body, stats (array), image URL
+- **Works** — title, items (array of tag/name/desc/image URL)
+- **Contact** — title, heading, links (array of label/value/href)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each section has side-by-side EN/ID columns with per-field sync buttons (→ copy EN→ID, ← copy ID→EN). Array fields mirror ADD/REMOVE to both languages. Image URLs can be validated with a 🔍 check button.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Docker
 
-## Deploy on Vercel
+```bash
+docker build -t portfolio .
+docker run -d \
+  -p 3000:3000 \
+  -e ADMIN_PASSWORD=yourpassword \
+  -e SESSION_SECRET=randomstring \
+  -v /host/path/to/data:/app/data \
+  portfolio
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Images are loaded from external URLs set via the admin panel. Add a `public/images/` volume mount for local file upload if needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+├── app/
+│   ├── page.tsx            # Server component, ISR fetch from DB
+│   ├── PageClient.tsx       # Client state machine (transitions, lang, nav)
+│   ├── globals.css          # All styles (~920 lines)
+│   ├── i18n.ts              # Bilingual dict EN/ID
+│   ├── components/Nav.tsx   # Rail nav + section navigation
+│   ├── sections/            # Hero, About, Works, Contact
+│   └── admin/               # Admin panel (login + edit forms)
+├── lib/
+│   ├── db.ts                # SQLite schema, seed, CRUD
+│   ├── auth.ts              # HMAC cookie auth (Node.js)
+│   ├── actions.ts           # Server actions (login, logout, saveContentPair)
+│   └── checkImage.ts        # Image URL validation utility
+├── proxy.ts                 # Route guard (Edge Web Crypto)
+├── Dockerfile               # Multi-stage build
+└── .env.example
+```
+
+## License
+
+MIT
