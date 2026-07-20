@@ -10,6 +10,9 @@ export default function About({ t, visible }: Props) {
     <section className={`section ${visible ? "is-visible" : ""}`}>
       <h2 className="sec-title reveal">{t.about.title}</h2>
       <div className="about-panel reveal">
+        {t.about.image && (
+          <img className="about-image" src={t.about.image} alt="About" />
+        )}
         <p className="about-heading">{t.about.heading}</p>
         <p>{t.about.body}</p>
         <div className="about-stats">

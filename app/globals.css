@@ -176,6 +176,21 @@ a {
   opacity: 0.28;
 }
 
+.hero-image {
+  width: clamp(100px, 14vw, 180px);
+  max-width: 200px;
+  max-height: 200px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  clip-path: polygon(
+    50% 0%, 58% 14%, 72% 6%, 74% 22%, 90% 18%, 88% 34%, 100% 38%,
+    94% 50%, 100% 62%, 88% 66%, 90% 82%, 74% 78%, 72% 94%, 58% 86%,
+    50% 100%, 42% 86%, 28% 94%, 26% 78%, 10% 82%, 12% 66%, 0% 62%,
+    6% 50%, 0% 38%, 12% 34%, 10% 18%, 26% 22%, 28% 6%, 42% 14%
+  );
+  margin-bottom: 1rem;
+}
+
 .hero-greet {
   display: inline-block;
   align-self: flex-start;
@@ -237,6 +252,18 @@ a {
   border-left: 10px solid var(--acid);
 }
 
+.about-image {
+  float: right;
+  width: clamp(120px, 16vw, 200px);
+  max-width: 220px;
+  max-height: 220px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  clip-path: polygon(4% 0%, 100% 2%, 96% 100%, 0% 98%);
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .about-heading {
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 2.6vw, 1.9rem);
@@ -278,6 +305,14 @@ a {
   clip-path: polygon(0 4%, 100% 0, 98% 96%, 2% 100%);
   border-top: 8px solid var(--violet);
   transition: transform 0.2s;
+}
+
+.work-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  clip-path: polygon(0 3%, 100% 0, 99% 97%, 1% 100%);
 }
 
 .work-card:nth-child(odd) { transform: rotate(-1.2deg); }
@@ -802,6 +837,50 @@ a {
 .admin-error {
   color: var(--acid);
   text-align: center;
+}
+
+.admin-input-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.admin-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-check-btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  background: var(--violet);
+  color: var(--bone);
+  border: none;
+  padding: 0.3em 0.5em;
+  cursor: pointer;
+  transform: skewX(-6deg);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.admin-check-btn:hover {
+  background: var(--acid);
+  color: var(--ink);
+}
+
+.admin-check-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-check-ok {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.admin-check-err {
+  color: #ef4444;
+  font-weight: bold;
 }
 
 /* ---------- admin pair (side-by-side EN/ID) ---------- */

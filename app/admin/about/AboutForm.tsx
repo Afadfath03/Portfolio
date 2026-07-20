@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { saveContentPair } from "@/lib/actions";
+import { checkImageUrl } from "@/lib/checkImage";
 import { type Dict } from "../../i18n";
 import FieldPair from "../components/FieldPair";
 import ArrayEditor from "../components/ArrayEditor";
@@ -25,16 +26,31 @@ export default function AboutForm({ en, id }: Props) {
   const [idBody, setIdBody] = useState(id.body);
   const [enStats, setEnStats] = useState(en.stats);
   const [idStats, setIdStats] = useState(id.stats);
+  const [enImage, setEnImage] = useState(en.image || "");
+  const [idImage, setIdImage] = useState(id.image || "");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [checkResult, setCheckResult] = useState<"ok" | "error" | null>(null);
+
+  const handleCheck = useCallback(async () => {
+    setChecking(true);
+    setCheckResult(null);
+    const [enOk, idOk] = await Promise.all([
+      checkImageUrl(enImage),
+      checkImageUrl(idImage),
+    ]);
+    setCheckResult(enOk && idOk ? "ok" : "error");
+    setChecking(false);
+  }, [enImage, idImage]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const res = await saveContentPair(
       "about",
-      { title: enTitle, heading: enHeading, body: enBody, stats: enStats },
-      { title: idTitle, heading: idHeading, body: idBody, stats: idStats }
+      { title: enTitle, heading: enHeading, body: enBody, stats: enStats, image: enImage },
+      { title: idTitle, heading: idHeading, body: idBody, stats: idStats, image: idImage }
     );
     setStatus(res.ok ? "Saved" : res.error || "Error");
     setLoading(false);
@@ -68,6 +84,17 @@ export default function AboutForm({ en, id }: Props) {
         onIdChange={setIdBody}
         textarea
         rows={8}
+      />
+
+      <FieldPair
+        label="Image URL"
+        enValue={enImage}
+        idValue={idImage}
+        onEnChange={setEnImage}
+        onIdChange={setIdImage}
+        onCheck={handleCheck}
+        checking={checking}
+        checkResult={checkResult}
       />
 
       <div className="admin-pair">

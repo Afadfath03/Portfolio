@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { saveContentPair } from "@/lib/actions";
+import { checkImageUrl } from "@/lib/checkImage";
 import { type Dict } from "../../i18n";
 import FieldPair from "../components/FieldPair";
 
@@ -19,16 +20,31 @@ export default function HeroForm({ en, id }: Props) {
   const [idTagline, setIdTagline] = useState(id.tagline);
   const [enSub, setEnSub] = useState(en.sub);
   const [idSub, setIdSub] = useState(id.sub);
+  const [enImage, setEnImage] = useState(en.image || "");
+  const [idImage, setIdImage] = useState(id.image || "");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [checkResult, setCheckResult] = useState<"ok" | "error" | null>(null);
+
+  const handleCheck = useCallback(async () => {
+    setChecking(true);
+    setCheckResult(null);
+    const [enOk, idOk] = await Promise.all([
+      checkImageUrl(enImage),
+      checkImageUrl(idImage),
+    ]);
+    setCheckResult(enOk && idOk ? "ok" : "error");
+    setChecking(false);
+  }, [enImage, idImage]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const res = await saveContentPair(
       "hero",
-      { greeting: enGreeting, tagline: enTagline, sub: enSub },
-      { greeting: idGreeting, tagline: idTagline, sub: idSub }
+      { greeting: enGreeting, tagline: enTagline, sub: enSub, image: enImage },
+      { greeting: idGreeting, tagline: idTagline, sub: idSub, image: idImage }
     );
     setStatus(res.ok ? "Saved" : res.error || "Error");
     setLoading(false);
@@ -62,6 +78,17 @@ export default function HeroForm({ en, id }: Props) {
         onIdChange={setIdSub}
         textarea
         rows={4}
+      />
+
+      <FieldPair
+        label="Image URL"
+        enValue={enImage}
+        idValue={idImage}
+        onEnChange={setEnImage}
+        onIdChange={setIdImage}
+        onCheck={handleCheck}
+        checking={checking}
+        checkResult={checkResult}
       />
 
       <button type="submit" disabled={loading}>

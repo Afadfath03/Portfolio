@@ -12,6 +12,7 @@ export default function Works({ t, visible }: Props) {
       <div className="works-grid">
         {t.works.items.map((w) => (
           <article className="work-card reveal" key={w.name}>
+            {w.image && <img className="work-image" src={w.image} alt={w.name} />}
             <span className="work-tag">{w.tag}</span>
             <h3>{w.name}</h3>
             <p>{w.desc}</p>

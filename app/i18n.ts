@@ -16,6 +16,7 @@ const en = {
     greeting: "AD ASTRA, PER ASPERA",
     tagline: "From Paradox to Paradigm",
     sub: "Even I don't know how these works",
+    image: "",
   },
   about: {
     title: "ABOUT",
@@ -26,6 +27,7 @@ const en = {
       { value: "XX", label: "PROJECTS SHIPPED" },
       { value: "∞", label: "IDEAS QUEUED" },
     ],
+    image: "",
   },
   works: {
     title: "WORKS",
@@ -34,16 +36,19 @@ const en = {
         tag: "WEB",
         name: "PROJECT ONE",
         desc: "Placeholder project. A thing that solves a problem nobody admitted having.",
+        image: "",
       },
       {
         tag: "APP",
         name: "PROJECT TWO",
         desc: "Placeholder project. Built backwards: the interface came first, the logic caught up.",
+        image: "",
       },
       {
         tag: "EXPERIMENT",
         name: "PROJECT THREE",
         desc: "Placeholder project. Technically useless, aesthetically essential.",
+        image: "",
       },
     ],
   },
@@ -71,6 +76,7 @@ const id: Dict = {
     greeting: "AD ASTRA, PER ASPERA",
     tagline: "From Paradox to Paradigm",
     sub: "Even I don't know how these works",
+    image: "",
   },
   about: {
     title: "TENTANG",
@@ -81,6 +87,7 @@ const id: Dict = {
       { value: "XX", label: "PROYEK RILIS" },
       { value: "∞", label: "IDE ANTRI" },
     ],
+    image: "",
   },
   works: {
     title: "KARYA",
@@ -89,16 +96,19 @@ const id: Dict = {
         tag: "WEB",
         name: "PROYEK SATU",
         desc: "Proyek placeholder. Sesuatu yang menyelesaikan masalah yang tak diakui orang.",
+        image: "",
       },
       {
         tag: "APP",
         name: "PROYEK DUA",
         desc: "Proyek placeholder. Dibangun terbalik: antarmuka dulu, logika menyusul.",
+        image: "",
       },
       {
         tag: "EKSPERIMEN",
         name: "PROYEK TIGA",
         desc: "Proyek placeholder. Secara teknis tidak berguna, secara estetika wajib ada.",
+        image: "",
       },
     ],
   },

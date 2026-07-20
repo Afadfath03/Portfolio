@@ -8,6 +8,9 @@ type Props = {
   onIdChange: (v: string) => void;
   textarea?: boolean;
   rows?: number;
+  onCheck?: () => void;
+  checking?: boolean;
+  checkResult?: "ok" | "error" | null;
 };
 
 export default function FieldPair({
@@ -18,6 +21,9 @@ export default function FieldPair({
   onIdChange,
   textarea = false,
   rows = 3,
+  onCheck,
+  checking,
+  checkResult,
 }: Props) {
   return (
     <div className="admin-field-group">
@@ -47,6 +53,21 @@ export default function FieldPair({
             <input value={idValue} onChange={(e) => onIdChange(e.target.value)} />
           )}
         </div>
+        {onCheck && (
+          <div className="admin-sync-btns">
+            <button
+              type="button"
+              title="Check image"
+              className="admin-check-btn"
+              disabled={checking}
+              onClick={onCheck}
+            >
+              {checking ? "…" : "🔍"}
+            </button>
+            {checkResult === "ok" && <span className="admin-check-ok">✓</span>}
+            {checkResult === "error" && <span className="admin-check-err">✗</span>}
+          </div>
+        )}
       </div>
     </div>
   );

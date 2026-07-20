@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { saveContentPair } from "@/lib/actions";
+import { checkImageUrl } from "@/lib/checkImage";
 import { type Dict } from "../../i18n";
 import FieldPair from "../components/FieldPair";
 import ArrayEditor from "../components/ArrayEditor";
@@ -14,7 +15,7 @@ type Props = {
   id: Data;
 };
 
-const emptyItem: Item = { tag: "TAG", name: "NAME", desc: "Description" };
+const emptyItem: Item = { tag: "TAG", name: "NAME", desc: "Description", image: "" };
 
 export default function WorksForm({ en, id }: Props) {
   const [enTitle, setEnTitle] = useState(en.title);
@@ -23,6 +24,15 @@ export default function WorksForm({ en, id }: Props) {
   const [idItems, setIdItems] = useState(id.items);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkIdx, setCheckIdx] = useState<string | null>(null);
+  const [checkResults, setCheckResults] = useState<Record<string, "ok" | "error">>({});
+
+  const handleCheckItem = useCallback(async (key: string, url: string) => {
+    setCheckIdx(key);
+    const ok = await checkImageUrl(url);
+    setCheckResults((prev) => ({ ...prev, [key]: ok ? "ok" : "error" }));
+    setCheckIdx(null);
+  }, []);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -57,7 +67,9 @@ export default function WorksForm({ en, id }: Props) {
             mirrorItems={idItems}
             setMirrorItems={setIdItems}
             defaultItem={emptyItem}
-            renderItem={(item, _idx, update) => (
+            renderItem={(item, _idx, update) => {
+              const key = `en-${_idx}`;
+              return (
               <div className="admin-stack">
                 <input
                   value={item.tag}
@@ -75,8 +87,21 @@ export default function WorksForm({ en, id }: Props) {
                   placeholder="Description"
                   rows={3}
                 />
+                <div className="admin-input-row">
+                  <input
+                    value={item.image || ""}
+                    onChange={(e) => update({ ...item, image: e.target.value })}
+                    placeholder="Image URL"
+                  />
+                  <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
+                    {checkIdx === key ? "…" : "🔍"}
+                  </button>
+                  {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
+                  {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}
+                </div>
               </div>
-            )}
+              );
+            }}
           />
         </div>
         <div className="admin-sync-btns admin-sync-btns-top">
@@ -94,7 +119,9 @@ export default function WorksForm({ en, id }: Props) {
             setItems={setIdItems}
             hideAdd
             defaultItem={emptyItem}
-            renderItem={(item, _idx, update) => (
+            renderItem={(item, _idx, update) => {
+              const key = `id-${_idx}`;
+              return (
               <div className="admin-stack">
                 <input
                   value={item.tag}
@@ -112,8 +139,21 @@ export default function WorksForm({ en, id }: Props) {
                   placeholder="Description"
                   rows={3}
                 />
+                <div className="admin-input-row">
+                  <input
+                    value={item.image || ""}
+                    onChange={(e) => update({ ...item, image: e.target.value })}
+                    placeholder="Image URL"
+                  />
+                  <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
+                    {checkIdx === key ? "…" : "🔍"}
+                  </button>
+                  {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
+                  {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}
+                </div>
               </div>
-            )}
+              );
+            }}
           />
         </div>
       </div>

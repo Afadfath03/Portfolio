@@ -9,6 +9,9 @@ export default function Hero({ t, visible }: Props) {
   return (
     <section className={`section ${visible ? "is-visible" : ""}`}>
       <div className="hero-burst" aria-hidden="true" />
+      {t.hero.image && (
+        <img className="hero-image reveal" src={t.hero.image} alt="Profile" />
+      )}
       <p className="hero-greet reveal">{t.hero.greeting}</p>
       <h1 className="hero-name reveal">
         <span className="line1">AFAD FATH</span>
