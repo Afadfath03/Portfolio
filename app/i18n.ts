@@ -115,12 +115,13 @@ const id: Dict = {
 
 export const dict: Record<Lang, Dict> = { en, id };
 
-// --- lang store (localStorage-backed, for useSyncExternalStore) ---
+// --- lang store (in-memory, for useSyncExternalStore) ---
 
 const langListeners = new Set<() => void>();
+let currentLang: Lang = "en";
 
 export function getLang(): Lang {
-  return localStorage.getItem("lang") === "id" ? "id" : "en";
+  return currentLang;
 }
 
 export function getDefaultLang(): Lang {
@@ -128,7 +129,7 @@ export function getDefaultLang(): Lang {
 }
 
 export function setLang(l: Lang) {
-  localStorage.setItem("lang", l);
+  currentLang = l;
   langListeners.forEach((fn) => fn());
 }
 
