@@ -1,0 +1,9 @@
+# Standalone backend dev — run: docker compose up -d
+services:
+  backend:
+    build: .
+    ports:
+      - "8889:8889"
+    env_file: ../.env
+    volumes:
+      - ../data:/app/data

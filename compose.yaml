@@ -1,11 +1,18 @@
 services:
-  portfolio:
-    build: .
+  backend:
+    build: ./backend
+    ports:
+      - "8889:8889"
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+
+  frontend:
+    build: ./frontend
     ports:
       - "8888:3000"
     env_file: .env
-    volumes:
-      - data:/app/data
-
-volumes:
-  data:
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8889
