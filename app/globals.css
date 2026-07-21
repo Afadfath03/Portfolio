@@ -128,8 +128,7 @@ a {
   gap: 1.1rem;
   padding: clamp(48px, 10vh, 120px) clamp(24px, 5vw, 72px);
   position: relative;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
+  overflow: hidden;
 }
 
 .reveal {
@@ -415,8 +414,8 @@ a {
 
 .layout {
   display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
 }
 
 .lang-fade-all {
@@ -437,7 +436,9 @@ a {
 .content {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .pane {
