@@ -2,29 +2,16 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "Portofolio-FE",
+    "Portofolio-BE"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "better-sqlite3": "^12.11.1",
-    "next": "16.2.10",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.10",
-    "server-only": "^0.0.1",
-    "typescript": "^5"
-  },
-  "allowScripts": {
-    "better-sqlite3@12.11.1": true
+    "dev:fe": "npm run dev -w Portofolio-FE",
+    "dev:be": "npm run dev -w Portofolio-BE",
+    "build:fe": "npm run build -w Portofolio-FE",
+    "build:be": "npm run build -w Portofolio-BE",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down"
   }
 }

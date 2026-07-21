@@ -1,0 +1,20 @@
+services:
+  be:
+    build: ./Portofolio-BE
+    volumes:
+      - ./Portofolio-BE/data:/app/data
+    env_file:
+      - ./Portofolio-BE/.env
+    expose:
+      - "3000"
+    restart: unless-stopped
+
+  fe:
+    build: ./Portofolio-FE
+    ports:
+      - "3000:3000"
+    environment:
+      - BE_URL=http://be:3000
+    depends_on:
+      - be
+    restart: unless-stopped
