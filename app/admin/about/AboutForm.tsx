@@ -97,7 +97,7 @@ export default function AboutForm({ en, id }: Props) {
         checkResult={checkResult}
       />
 
-      <div className="admin-pair">
+      <div className="admin-pair-2">
         <div className="admin-col">
           <label>Stats EN</label>
           <ArrayEditor
@@ -106,6 +106,9 @@ export default function AboutForm({ en, id }: Props) {
             mirrorItems={idStats}
             setMirrorItems={setIdStats}
             defaultItem={emptyStat}
+            renderSync={(idx) => (
+              <button type="button" title="Copy EN → ID" onClick={() => { const next = [...idStats]; next[idx] = enStats[idx]; setIdStats(next); }}>→</button>
+            )}
             renderItem={(stat, _idx, update) => (
               <div className="admin-row">
                 <input
@@ -122,21 +125,18 @@ export default function AboutForm({ en, id }: Props) {
             )}
           />
         </div>
-        <div className="admin-sync-btns admin-sync-btns-top">
-          <button type="button" title="Copy EN → ID" onClick={() => setIdStats(structuredClone(enStats))}>
-            →
-          </button>
-          <button type="button" title="Copy ID → EN" onClick={() => setEnStats(structuredClone(idStats))}>
-            ←
-          </button>
-        </div>
         <div className="admin-col">
           <label>Stats ID</label>
           <ArrayEditor
             items={idStats}
             setItems={setIdStats}
+            mirrorItems={enStats}
+            setMirrorItems={setEnStats}
             hideAdd
             defaultItem={emptyStat}
+            renderSync={(idx) => (
+              <button type="button" title="Copy ID → EN" onClick={() => { const next = [...enStats]; next[idx] = idStats[idx]; setEnStats(next); }}>←</button>
+            )}
             renderItem={(stat, _idx, update) => (
               <div className="admin-row">
                 <input

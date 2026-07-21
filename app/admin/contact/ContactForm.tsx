@@ -58,7 +58,7 @@ export default function ContactForm({ en, id }: Props) {
         onIdChange={setIdHeading}
       />
 
-      <div className="admin-pair">
+      <div className="admin-pair-2">
         <div className="admin-col">
           <label>Links EN</label>
           <ArrayEditor
@@ -67,6 +67,9 @@ export default function ContactForm({ en, id }: Props) {
             mirrorItems={idLinks}
             setMirrorItems={setIdLinks}
             defaultItem={emptyLink}
+            renderSync={(idx) => (
+              <button type="button" title="Copy EN → ID" onClick={() => { const next = [...idLinks]; next[idx] = enLinks[idx]; setIdLinks(next); }}>→</button>
+            )}
             renderItem={(link, _idx, update) => (
               <div className="admin-stack">
                 <input
@@ -88,21 +91,18 @@ export default function ContactForm({ en, id }: Props) {
             )}
           />
         </div>
-        <div className="admin-sync-btns admin-sync-btns-top">
-          <button type="button" title="Copy EN → ID" onClick={() => setIdLinks(structuredClone(enLinks))}>
-            →
-          </button>
-          <button type="button" title="Copy ID → EN" onClick={() => setEnLinks(structuredClone(idLinks))}>
-            ←
-          </button>
-        </div>
         <div className="admin-col">
           <label>Links ID</label>
           <ArrayEditor
             items={idLinks}
             setItems={setIdLinks}
+            mirrorItems={enLinks}
+            setMirrorItems={setEnLinks}
             hideAdd
             defaultItem={emptyLink}
+            renderSync={(idx) => (
+              <button type="button" title="Copy ID → EN" onClick={() => { const next = [...enLinks]; next[idx] = idLinks[idx]; setEnLinks(next); }}>←</button>
+            )}
             renderItem={(link, _idx, update) => (
               <div className="admin-stack">
                 <input

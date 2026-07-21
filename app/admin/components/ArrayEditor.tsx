@@ -7,6 +7,7 @@ type Props<T> = {
   setItems: (items: T[]) => void;
   defaultItem: T;
   renderItem: (item: T, idx: number, update: (item: T) => void) => ReactNode;
+  renderSync?: (idx: number, update: (item: T) => void) => ReactNode;
   mirrorItems?: T[];
   setMirrorItems?: (items: T[]) => void;
   hideAdd?: boolean;
@@ -17,6 +18,7 @@ export default function ArrayEditor<T>({
   setItems,
   defaultItem,
   renderItem,
+  renderSync,
   mirrorItems,
   setMirrorItems,
   hideAdd,
@@ -39,6 +41,11 @@ export default function ArrayEditor<T>({
     if (target < 0 || target >= next.length) return;
     [next[idx], next[target]] = [next[target], next[idx]];
     setItems(next);
+    if (mirrorItems && setMirrorItems) {
+      const nextMirror = [...mirrorItems];
+      [nextMirror[idx], nextMirror[target]] = [nextMirror[target], nextMirror[idx]];
+      setMirrorItems(nextMirror);
+    }
   };
 
   return (
@@ -57,6 +64,11 @@ export default function ArrayEditor<T>({
             <button type="button" onClick={() => move(idx, 1)} disabled={idx === items.length - 1}>
               ▼
             </button>
+            {renderSync?.(idx, (updated) => {
+              const next = [...items];
+              next[idx] = updated;
+              setItems(next);
+            })}
             <button type="button" className="admin-array-remove" onClick={() => remove(idx)}>
               ×
             </button>

@@ -58,7 +58,7 @@ export default function WorksForm({ en, id }: Props) {
         onIdChange={setIdTitle}
       />
 
-      <div className="admin-pair">
+      <div className="admin-pair-2">
         <div className="admin-col">
           <label>Items EN</label>
           <ArrayEditor
@@ -67,6 +67,9 @@ export default function WorksForm({ en, id }: Props) {
             mirrorItems={idItems}
             setMirrorItems={setIdItems}
             defaultItem={emptyItem}
+            renderSync={(idx) => (
+              <button type="button" title="Copy EN → ID" onClick={() => { const next = [...idItems]; next[idx] = enItems[idx]; setIdItems(next); }}>→</button>
+            )}
             renderItem={(item, _idx, update) => {
               const key = `en-${_idx}`;
               return (
@@ -104,21 +107,18 @@ export default function WorksForm({ en, id }: Props) {
             }}
           />
         </div>
-        <div className="admin-sync-btns admin-sync-btns-top">
-          <button type="button" title="Copy EN → ID" onClick={() => setIdItems(structuredClone(enItems))}>
-            →
-          </button>
-          <button type="button" title="Copy ID → EN" onClick={() => setEnItems(structuredClone(idItems))}>
-            ←
-          </button>
-        </div>
         <div className="admin-col">
           <label>Items ID</label>
           <ArrayEditor
             items={idItems}
             setItems={setIdItems}
+            mirrorItems={enItems}
+            setMirrorItems={setEnItems}
             hideAdd
             defaultItem={emptyItem}
+            renderSync={(idx) => (
+              <button type="button" title="Copy ID → EN" onClick={() => { const next = [...enItems]; next[idx] = idItems[idx]; setEnItems(next); }}>←</button>
+            )}
             renderItem={(item, _idx, update) => {
               const key = `id-${_idx}`;
               return (

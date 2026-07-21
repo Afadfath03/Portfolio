@@ -907,6 +907,13 @@ a {
   align-items: start;
 }
 
+.admin-pair-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
 .admin-col {
   display: flex;
   flex-direction: column;
@@ -945,6 +952,10 @@ a {
 
 @media (max-width: 768px) {
   .admin-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-pair-2 {
     grid-template-columns: 1fr;
   }
 
