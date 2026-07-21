@@ -17,4 +17,3 @@ jobs:
           script: |
             cd /home/${{ secrets.VPS_USER }}/project/Portfolio
             git pull origin main
-            docker compose up -d --build
