@@ -2,7 +2,7 @@ import PageClient from "./PageClient";
 
 const BE_URL = process.env.BE_URL || "http://localhost:3001";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const res = await fetch(`${BE_URL}/api/content`, { next: { revalidate: 60 } });
