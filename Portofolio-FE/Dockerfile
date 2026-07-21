@@ -12,7 +12,8 @@ RUN npm run build
 FROM node:alpine AS run
 WORKDIR /app
 ENV NODE_ENV=production
+ENV PORT=8887
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
-EXPOSE 3000
+EXPOSE 8887
 CMD ["node", "server.js"]

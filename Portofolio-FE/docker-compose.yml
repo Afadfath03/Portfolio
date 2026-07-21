@@ -2,9 +2,9 @@ services:
   fe:
     build: .
     ports:
-      - "3000:3000"
+      - "8887:8887"
     environment:
-      - BE_URL=http://be:3000
+      - BE_URL=http://be:8888
     depends_on:
       - be
     restart: unless-stopped
@@ -16,5 +16,5 @@ services:
     env_file:
       - ../Portofolio-BE/.env
     expose:
-      - "3000"
+      - "8888"
     restart: unless-stopped

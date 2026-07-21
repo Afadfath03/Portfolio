@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const BE_URL = process.env.BE_URL || "http://localhost:3001";
+const BE_URL = process.env.BE_URL || "http://localhost:8888";
 
 const nextConfig: NextConfig = {
   output: "standalone",
