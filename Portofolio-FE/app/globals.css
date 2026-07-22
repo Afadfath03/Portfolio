@@ -32,7 +32,10 @@ body {
   color: var(--bone);
   font-family: var(--font-body);
   overflow-x: hidden;
+  user-select: none;
 }
+
+input, textarea, button { user-select: auto; }
 
 /* halftone dot layer over everything (decorative) */
 body::after {
