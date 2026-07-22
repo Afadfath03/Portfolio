@@ -10,7 +10,10 @@ services:
     restart: unless-stopped
 
   fe:
-    build: ./Portofolio-FE
+    build:
+      context: ./Portofolio-FE
+      args:
+        BE_URL: http://be:8888
     ports:
       - "8887:8887"
     environment:

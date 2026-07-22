@@ -5,6 +5,8 @@ RUN npm install
 
 FROM node:alpine AS build
 WORKDIR /app
+ARG BE_URL=http://localhost:8888
+ENV BE_URL=${BE_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
