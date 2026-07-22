@@ -65,7 +65,7 @@ export default function FieldPair({
               {checking ? "…" : "🔗"}
             </button>
             {checkResult === "ok" && <span className="admin-check-ok">✓</span>}
-            {checkResult === "error" && <span className="admin-check-err">✗</span>}
+            {(checkResult === "error" || (!enValue && !idValue)) && <span className="admin-check-err">✗</span>}
           </div>
         )}
       </div>

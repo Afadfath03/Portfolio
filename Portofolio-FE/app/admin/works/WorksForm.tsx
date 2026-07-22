@@ -104,7 +104,7 @@ export default function WorksForm({ en, id }: Props) {
                     {checkIdx === key ? "…" : "🔗"}
                   </button>
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
-                  {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}
+                  {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
               </div>
               );
@@ -153,7 +153,7 @@ export default function WorksForm({ en, id }: Props) {
                     {checkIdx === key ? "…" : "🔗"}
                   </button>
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
-                  {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}
+                  {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
               </div>
               );
