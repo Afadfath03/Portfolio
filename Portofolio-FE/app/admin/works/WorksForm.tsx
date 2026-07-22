@@ -101,7 +101,7 @@ export default function WorksForm({ en, id }: Props) {
                     placeholder="Image URL"
                   />
                   <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
-                    {checkIdx === key ? "…" : "🔍"}
+                    {checkIdx === key ? "…" : "🔗"}
                   </button>
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
                   {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}
@@ -150,7 +150,7 @@ export default function WorksForm({ en, id }: Props) {
                     placeholder="Image URL"
                   />
                   <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
-                    {checkIdx === key ? "…" : "🔍"}
+                    {checkIdx === key ? "…" : "🔗"}
                   </button>
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
                   {checkResults[key] === "error" && <span className="admin-check-err">✗</span>}

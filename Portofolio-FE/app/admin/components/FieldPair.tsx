@@ -62,7 +62,7 @@ export default function FieldPair({
               disabled={checking}
               onClick={onCheck}
             >
-              {checking ? "…" : "🔍"}
+              {checking ? "…" : "🔗"}
             </button>
             {checkResult === "ok" && <span className="admin-check-ok">✓</span>}
             {checkResult === "error" && <span className="admin-check-err">✗</span>}

@@ -79,7 +79,7 @@ Located at `/admin`. Login with `ADMIN_PASSWORD`. Sections:
 - **Works** — title, items (array of tag/name/desc/image URL)
 - **Contact** — title, heading, links (array of label/value/href)
 
-Each section has side-by-side EN/ID columns with per-item sync buttons (→ copy EN→ID, ← copy ID→EN). Array fields mirror ADD/REMOVE/MOVE to both languages. Image URLs can be validated with a 🔍 check button.
+Each section has side-by-side EN/ID columns with per-item sync buttons (→ copy EN→ID, ← copy ID→EN). Array fields mirror ADD/REMOVE/MOVE to both languages. Image URLs can be validated with a 🔗 check button.
 
 ## Docker
 

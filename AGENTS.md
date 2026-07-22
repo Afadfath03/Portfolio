@@ -77,7 +77,7 @@ Routes in `app/api/`:
 - `FieldPair` component for side-by-side field editing with sync buttons.
 - `ArrayEditor` component supports mirror ADD/REMOVE/MOVE via `mirrorItems`/`setMirrorItems` props. Per-item sync via `renderSync` prop.
 - Save calls `fetch("/api/content/{section}", { method: "PUT", body: JSON.stringify({ en, id }) })`.
-- Image URLs: validated manually via 🔍 check button (`lib/checkImage.ts`), not on save.
+- Image URLs: validated manually via 🔗 check button (`lib/checkImage.ts`), not on save.
 - All forms have loading state on save button.
 
 ## Deployment
