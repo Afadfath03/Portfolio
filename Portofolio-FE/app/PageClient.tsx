@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -28,7 +29,7 @@ type Phase = "idle" | "exit" | "enter";
 type Dir = "cw" | "ccw";
 
 type Props = {
-  initial: { en: Dict; id: Dict };
+  initial: { en: Dict; id: Dict } | null;
 };
 
 export default function PageClient({ initial }: Props) {
@@ -36,6 +37,7 @@ export default function PageClient({ initial }: Props) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [dir, setDir] = useState<Dir>("cw");
   const [content, setContent] = useState(initial);
+  const [error, setError] = useState(false);
   const lang = useSyncExternalStore(subscribeLang, getLang, getDefaultLang);
   const [displayLang, setDisplayLang] = useState<Lang>(lang);
   const [langPhase, setLangPhase] = useState<Phase>("idle");
@@ -46,12 +48,21 @@ export default function PageClient({ initial }: Props) {
     return () => list.forEach(clearTimeout);
   }, []);
 
-  useEffect(() => {
-    fetch("/api/content", { cache: "no-store" })
-      .then((r) => r.json())
-      .then(setContent)
-      .catch(() => {}); // ponytail: keep initial on network fail
+  const fetchContent = useCallback(async () => {
+    try {
+      const res = await fetch("/api/content", { cache: "no-store" });
+      if (!res.ok) throw new Error(`${res.status}`);
+      const data = await res.json();
+      setContent(data);
+      setError(false);
+    } catch {
+      setError(true);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchContent();
+  }, [fetchContent]);
 
   const navigate = useCallback(
     (id: SectionId) => {
@@ -93,6 +104,26 @@ export default function PageClient({ initial }: Props) {
     },
     [displayLang, langPhase, phase]
   );
+
+  if (content === null) {
+    if (error) {
+      return (
+        <div className="err-wrap">
+          <p className="err-head">CONNECTION LOST</p>
+          <p className="err-sub">Can&apos;t reach the server. Please try again.</p>
+          <div className="err-actions">
+            <button className="err-retry" onClick={fetchContent}>RETRY</button>
+            <Link href="/" className="err-home">BACK HOME</Link>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="ld-wrap">
+        <div className="ld-dot" />
+      </div>
+    );
+  }
 
   const tContent = content[displayLang];
   const paneClass = phase === "idle" ? "pane" : `pane ${phase}-${dir}`;

@@ -1044,6 +1044,81 @@ a {
   }
 }
 
+/* ---------- loading state ---------- */
+
+.ld-wrap {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ld-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--acid);
+  border-radius: 50%;
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  to { transform: scale(1.5); opacity: 0.3; }
+}
+
+/* ---------- error fallback ---------- */
+
+.err-wrap {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.err-head {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--acid);
+  transform: rotate(-2deg);
+  animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.err-sub {
+  font-size: 1rem;
+  opacity: 0.7;
+  animation: rise 0.5s 0.08s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.err-actions {
+  display: flex;
+  gap: 1rem;
+  animation: rise 0.5s 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.err-retry,
+.err-home {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  background: var(--acid);
+  color: var(--ink);
+  padding: 0.5em 1.2em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transform: skewX(-10deg);
+  transition: background 0.15s, color 0.15s;
+}
+
+.err-retry:hover,
+.err-home:hover {
+  background: var(--violet);
+  color: var(--bone);
+}
+
 /* ---------- not-found ---------- */
 
 .nf-wrap {

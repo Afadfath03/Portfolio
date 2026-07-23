@@ -65,7 +65,8 @@ Routes in `app/api/`:
 
 ## FE Communication
 
-- `app/page.tsx` (Server Component): fetches from `${BE_URL}/api/content` directly (server-side).
+- `app/page.tsx` (Server Component): fetches from `${BE_URL}/api/content` directly (server-side). Wrapped in try/catch — passes `initial={null}` on failure.
+- `PageClient.tsx`: when `initial === null`, shows loading dot then either content (if client fetch recovers) or inline error fallback (CONNECTION LOST + RETRY button).
 - Admin forms (Client Components): `fetch("/api/content/{section}", { method: "PUT" })` via browser → FE rewrites to BE.
 - `next.config.ts` rewrites `/api/:path*` → `${BE_URL}/api/:path*`.
 - `credentials: "include"` on all client-side fetches to forward cookies.
