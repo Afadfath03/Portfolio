@@ -561,7 +561,15 @@ a {
   right: clamp(14px, 3vw, 32px);
   z-index: 40;
   display: flex;
-  transform: rotate(2deg);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lang-toggle.lang-en {
+  transform: rotate(-4deg);
+}
+
+.lang-toggle.lang-id {
+  transform: rotate(4deg);
 }
 
 .lang-toggle button {

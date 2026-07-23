@@ -114,7 +114,7 @@ export default function PageClient({ initial }: Props) {
         </div>
       </main>
 
-      <div className="lang-toggle" role="group" aria-label="Language">
+      <div className={`lang-toggle lang-${lang}`} role="group" aria-label="Language">
         <button
           className={lang === "en" ? "on" : ""}
           onClick={() => handleLang("en")}
