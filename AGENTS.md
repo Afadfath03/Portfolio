@@ -13,7 +13,7 @@ Two independent Next.js services in one repo:
 - **Portofolio-FE/** — Frontend (pages, components, CSS). No DB.
 - **Portofolio-BE/** — API-only (SQLite, auth, CRUD). No UI.
 
-FE fetches from BE via HTTP. FE proxies `/api/*` to BE using `next.config.ts` rewrites. In Docker, BE is internal (`http://be:3000`). In local dev, FE hits BE at `BE_URL` env var.
+FE fetches from BE via HTTP. FE proxies `/api/*` to BE using `next.config.ts` rewrites. In Docker, BE is internal (`http://be:8888`). In local dev, FE hits BE at `BE_URL` env var.
 
 **CRITICAL:** FE and BE share no code at runtime. Do NOT import from the other service. The only contract is the API response shape at `/api/content` and `/api/content/[section]`.
 
@@ -67,7 +67,7 @@ Routes in `app/api/`:
 - No Tailwind — plain CSS in `app/globals.css` (FE only).
 - Design tokens as CSS custom properties: `--violet: #3b82f6`, `--acid: #22d3ee`, `--ink: #0f172a`, `--panel: #1e293b`, `--bone: #e2e8f0`.
 - Fonts via `next/font/google`: `Archivo Black` (--font-display), `Space Grotesk` (--font-body).
-- Content pane rotation transitions for section nav. Language switch uses horizontal slide+fade.
+- Content pane rotation transitions for section nav (desktop). Mobile uses horizontal translateX. Language switch uses horizontal slide+fade.
 - Animations use CSS `@keyframes` + JS timers (not CSS `animation-delay` for sequential logic).
 
 ## Admin Panel (FE)
@@ -91,11 +91,6 @@ Routes in `app/api/`:
 ## Change Notification
 
 After every code change, always explain **what was changed** and **which service to reload**:
-
-- **FE only** → `docker compose up -d --build fe` or restart FE dev server
-- **BE only** → `docker compose up -d --build be` or restart BE dev server
-- **Both** → `docker compose up -d --build`
-- **Docker/infra** → `docker compose up -d`
 
 Format:
 ```

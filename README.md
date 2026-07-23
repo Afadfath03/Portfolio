@@ -1,81 +1,56 @@
 # Portfolio — Afad Fath
 
-Persona 5–inspired portfolio with bilingual support and a self-hosted admin panel.
+Bilingual portfolio (EN/ID) with a self-hosted admin panel.
 
 ## Architecture
 
-Split into two independent services:
+Two independent Next.js services in one repo:
 
-- **Portofolio-FE** — Next.js frontend (pages, components, CSS). Fetches data from BE via HTTP.
-- **Portofolio-BE** — Next.js API-only service (SQLite, auth, CRUD). Owns the database.
+- **Portofolio-FE** — Frontend (pages, components, CSS). Fetches data from BE via HTTP.
+- **Portofolio-BE** — API-only service (SQLite, auth, CRUD). Owns the database.
 
-FE and BE communicate over Docker internal network. FE proxies `/api/*` to BE via Next.js rewrites.
+FE proxies `/api/*` to BE via Next.js rewrites. No shared code at runtime.
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack, standalone output)
 - **Language:** TypeScript
-- **Styling:** Plain CSS (no Tailwind) — design tokens as CSS custom properties
-- **Database:** SQLite via `better-sqlite3`, single `data/portfolio.db`
+- **Styling:** Plain CSS — design tokens as CSS custom properties
+- **Database:** SQLite via `better-sqlite3`
 - **Auth:** HMAC-SHA256 signed cookie (7 days)
-- **Fonts:** Archivo Black (display) + Space Grotesk (body) via `next/font/google`
-- **Deployment:** Docker (multi-stage, standalone build)
+- **Fonts:** Archivo Black (display) + Space Grotesk (body)
 
 ## Quick Start
 
 ```bash
-# copy env files
-cp Portofolio-BE/.env.example Portofolio-BE/.env
-cp Portofolio-FE/.env.example Portofolio-FE/.env
-
-# fill credentials in Portofolio-BE/.env
-ADMIN_PASSWORD=yourpassword
-SESSION_SECRET=randomstring
-
-# install workspaces
-npm install
-
-# run both services
-docker compose up -d --build
-```
-
-Frontend: `http://localhost:3000`  
-Backend API: internal only (`http://be:8888` in Docker network)
-
-## Local Development (npm, no Docker)
-
-```bash
-# install all dependencies
-npm install
-
-# create env files
 cp Portofolio-BE/.env.example Portofolio-BE/.env
 cp Portofolio-FE/.env.example Portofolio-FE/.env
 # edit Portofolio-BE/.env — set ADMIN_PASSWORD and SESSION_SECRET
+
+npm install
+docker compose up -d --build
+```
+
+- Frontend: `http://localhost:8887`
+- Backend API: `http://localhost:8888` (internal in Docker)
+
+## Local Development (npm)
+
+```bash
+npm install
 
 # run BE (port 8888) and FE (port 3000) in separate terminals
 npm run dev:be
 npm run dev:fe
 ```
 
-Or run them together (background):
+FE auto-proxies `/api/*` to BE via `next.config.ts` rewrites.
+
+### Production build (no Docker)
 
 ```bash
-npm run dev:be & npm run dev:fe
-```
-
-FE auto-proxies `/api/*` to BE via `next.config.ts` rewrites. No CORS issues.
-
-### Build for production (no Docker)
-
-```bash
-npm run build:be
-npm run build:fe
-
-# start BE (port 8888)
+npm run build:be && npm run build:fe
 cd Portofolio-BE && PORT=8888 npm start
-
-# start FE (port 3000)
 cd Portofolio-FE && npm start
 ```
 
@@ -93,9 +68,7 @@ cd Portofolio-FE && npm start
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `BE_URL` | No | `http://localhost:3001` | BE API URL (for local dev outside Docker) |
-
-In Docker, FE uses `http://be:3000` via `next.config.ts` rewrites.
+| `BE_URL` | No | `http://localhost:8888` | BE API URL |
 
 ## API Endpoints
 
@@ -113,59 +86,43 @@ Located at `/admin`. Login with `ADMIN_PASSWORD`. Sections:
 
 - **Hero** — greeting, tagline, sub, image URL
 - **About** — title, heading, body, stats (array), image URL
-- **Works** — title, items (array of tag/name/desc/image URL)
+- **Works** — title, items (tag/name/desc/image URL/links array)
 - **Contact** — title, heading, links (array of label/value/href)
 
-Each section has side-by-side EN/ID columns with per-item sync buttons (→ copy EN→ID, ← copy ID→EN). Array fields mirror ADD/REMOVE/MOVE to both languages. Image URLs can be validated with a 🔗 check button.
+Side-by-side EN/ID columns with per-item sync buttons. Image URLs validated via check button.
 
 ## Docker
 
-### Run both services (recommended)
-
 ```bash
+# both services
 docker compose up -d --build
-```
 
-### Run individually
-
-```bash
-# BE only
-cd Portofolio-BE && docker compose up -d
-
-# FE only (includes BE)
-cd Portofolio-FE && docker compose up -d
-```
-
-### Update FE only (no BE rebuild)
-
-```bash
+# FE only (no BE rebuild)
 docker compose up -d --build fe
+
+# BE only
+docker compose up -d --build be
 ```
 
-DB data persists in `Portofolio-FE/data/` or `Portofolio-BE/data/` volume mounts.
+DB data persists in `Portofolio-BE/data/` volume mount.
 
 ## Project Structure
 
 ```
 ├── docker-compose.yml          # Run both services
 ├── package.json                # Monorepo root (npm workspaces)
-├── .env.example                # Combined reference
 │
 ├── Portofolio-BE/
-│   ├── Dockerfile
-│   ├── docker-compose.yml      # Standalone BE
 │   ├── lib/db.ts               # SQLite CRUD
 │   ├── lib/auth.ts             # HMAC cookie auth
 │   ├── app/i18n.ts             # Seed data (EN/ID dicts)
 │   ├── app/api/                # REST API routes
-│   └── data/                   # SQLite volume
+│   └── data/                   # SQLite volume (gitignored)
 │
 └── Portofolio-FE/
-    ├── Dockerfile
-    ├── docker-compose.yml      # FE + BE
     ├── next.config.ts          # rewrites /api/* → BE
     ├── lib/checkImage.ts       # Image URL validation
-    ├── app/                    # All UI
+    ├── app/
     │   ├── page.tsx            # SSR fetch from BE
     │   ├── PageClient.tsx      # Client state machine
     │   ├── globals.css         # All styles
@@ -175,14 +132,6 @@ DB data persists in `Portofolio-FE/data/` or `Portofolio-BE/data/` volume mounts
     │   └── admin/              # Admin panel (forms call BE API)
     └── public/
 ```
-
-## Key Decisions
-
-- **FE owns no database.** All data flows through BE API.
-- **No server actions in FE.** Admin forms use `fetch()` to BE endpoints.
-- **Auth on BE only.** FE admin pages are publicly accessible; BE API routes verify session.
-- **Next.js rewrites.** FE proxies `/api/*` to BE, avoiding CORS and cookie issues.
-- **Independent deploys.** FE and BE can be rebuilt/restarted independently as long as API contract is preserved.
 
 ## License
 
