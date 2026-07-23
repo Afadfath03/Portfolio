@@ -694,6 +694,7 @@ a {
 }
 
 .admin-nav-link,
+.admin-home,
 .admin-logout {
   font-family: var(--font-display);
   font-size: 0.85rem;
@@ -711,6 +712,11 @@ a {
 .admin-nav-link.active,
 .admin-nav-link:hover {
   background: var(--acid);
+}
+
+.admin-home:hover {
+  background: var(--acid);
+  color: var(--ink);
 }
 
 .admin-logout:hover {

@@ -45,6 +45,7 @@ export default function AdminNav({ children }: { children: React.ReactNode }) {
           })}
         </nav>
         <div className="admin-tools">
+          <Link href="/" className="admin-home">HOME</Link>
           <button className="admin-logout" onClick={handleLogout}>
             LOGOUT
           </button>
