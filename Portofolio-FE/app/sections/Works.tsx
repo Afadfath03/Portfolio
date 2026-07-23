@@ -16,6 +16,15 @@ export default function Works({ t, visible }: Props) {
             <span className="work-tag">{w.tag}</span>
             <h3>{w.name}</h3>
             <p>{w.desc}</p>
+            {w.links?.some((l) => l.href) && (
+              <div className="work-links">
+                {w.links.filter((l) => l.href).map((l) => (
+                  <a key={l.label} className="work-link" href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </article>
         ))}
       </div>

@@ -350,6 +350,29 @@ a {
   line-height: 1.55;
 }
 
+.work-links {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.work-link {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  background: var(--violet);
+  color: var(--bone);
+  padding: 0.3em 0.8em;
+  transform: skewX(-10deg);
+  transition: background 0.15s, color 0.15s;
+}
+
+.work-link:hover {
+  background: var(--acid);
+  color: var(--ink);
+}
+
 /* ---------- contact ---------- */
 
 .cc-card {
@@ -476,16 +499,16 @@ a {
   justify-content: center;
   align-items: flex-start;
   gap: clamp(12px, 2vh, 20px);
-  width: clamp(300px, 32vw, 440px);
+  width: clamp(220px, 24vw, 340px);
   flex-shrink: 0;
   height: 100vh;
   height: 100dvh;
-  padding-left: clamp(28px, 4vw, 56px);
+  padding-left: clamp(20px, 2.5vw, 40px);
 }
 
 .nav-item {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
   background: var(--bone);
   color: var(--ink);
   border: none;

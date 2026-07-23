@@ -14,7 +14,7 @@ type Props = {
   id: Data;
 };
 
-const emptyItem: Item = { tag: "TAG", name: "NAME", desc: "Description", image: "" };
+const emptyItem: Item = { tag: "TAG", name: "NAME", desc: "Description", image: "", links: [{ label: "", href: "" }, { label: "", href: "" }] };
 
 export default function WorksForm({ en, id }: Props) {
   const [enTitle, setEnTitle] = useState(en.title);
@@ -106,6 +106,28 @@ export default function WorksForm({ en, id }: Props) {
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
                   {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
+                {[0, 1].map((li) => (
+                  <div className="admin-input-row" key={li}>
+                    <input
+                      value={item.links?.[li]?.label || ""}
+                      onChange={(e) => {
+                        const links = [...(item.links || [{ label: "", href: "" }, { label: "", href: "" }])];
+                        links[li] = { ...links[li], label: e.target.value };
+                        update({ ...item, links });
+                      }}
+                      placeholder={`Link ${li + 1} label`}
+                    />
+                    <input
+                      value={item.links?.[li]?.href || ""}
+                      onChange={(e) => {
+                        const links = [...(item.links || [{ label: "", href: "" }, { label: "", href: "" }])];
+                        links[li] = { ...links[li], href: e.target.value };
+                        update({ ...item, links });
+                      }}
+                      placeholder={`Link ${li + 1} URL`}
+                    />
+                  </div>
+                ))}
               </div>
               );
             }}
@@ -155,6 +177,28 @@ export default function WorksForm({ en, id }: Props) {
                   {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
                   {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
+                {[0, 1].map((li) => (
+                  <div className="admin-input-row" key={li}>
+                    <input
+                      value={item.links?.[li]?.label || ""}
+                      onChange={(e) => {
+                        const links = [...(item.links || [{ label: "", href: "" }, { label: "", href: "" }])];
+                        links[li] = { ...links[li], label: e.target.value };
+                        update({ ...item, links });
+                      }}
+                      placeholder={`Link ${li + 1} label`}
+                    />
+                    <input
+                      value={item.links?.[li]?.href || ""}
+                      onChange={(e) => {
+                        const links = [...(item.links || [{ label: "", href: "" }, { label: "", href: "" }])];
+                        links[li] = { ...links[li], href: e.target.value };
+                        update({ ...item, links });
+                      }}
+                      placeholder={`Link ${li + 1} URL`}
+                    />
+                  </div>
+                ))}
               </div>
               );
             }}

@@ -100,8 +100,14 @@ After every code change, always explain **what was changed** and **which service
 Format:
 ```
 Changes: [file] — [what changed]
-Reload: [FE / BE / Both]
+Reload: [FE / BE / Both] → [actual command]
 ```
+
+Commands:
+- FE only → `docker compose up -d --build fe`
+- BE only → `docker compose up -d --build be`
+- Both → `docker compose up -d --build`
+- Docker/infra → `docker compose up -d`
 
 If unclear which service is affected, analyze the file path:
 - `Portofolio-FE/` → FE
