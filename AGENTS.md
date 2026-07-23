@@ -88,6 +88,26 @@ Routes in `app/api/`:
 - Root `docker-compose.yml` runs both services. FE `depends_on` BE.
 - To update FE only: `docker compose up -d --build fe`.
 
+## Change Notification
+
+After every code change, always explain **what was changed** and **which service to reload**:
+
+- **FE only** → `docker compose up -d --build fe` or restart FE dev server
+- **BE only** → `docker compose up -d --build be` or restart BE dev server
+- **Both** → `docker compose up -d --build`
+- **Docker/infra** → `docker compose up -d`
+
+Format:
+```
+Changes: [file] — [what changed]
+Reload: [FE / BE / Both]
+```
+
+If unclear which service is affected, analyze the file path:
+- `Portofolio-FE/` → FE
+- `Portofolio-BE/` → BE
+- Root config (`docker-compose.yml`, `AGENTS.md`) → depends on content
+
 ## Documentation Maintenance
 
 - **AGENTS.md and README.md are source of truth for agent and human.** If you change architecture, API contracts, env vars, deployment flow, or component patterns, update these files in the same session.

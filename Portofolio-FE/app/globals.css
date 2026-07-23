@@ -496,6 +496,7 @@ a {
   clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
   position: relative;
   opacity: 0.45;
+  width: 100%;
   transition: transform 0.25s, opacity 0.25s, background 0.15s, color 0.15s;
 }
 
@@ -595,6 +596,7 @@ a {
   .nav-item {
     font-size: clamp(0.85rem, 4vw, 1.1rem);
     white-space: nowrap;
+    width: auto;
   }
 
   .nav-item.active {

@@ -35,6 +35,7 @@ export default function PageClient({ initial }: Props) {
   const [active, setActive] = useState<SectionId>("home");
   const [phase, setPhase] = useState<Phase>("idle");
   const [dir, setDir] = useState<Dir>("cw");
+  const [content, setContent] = useState(initial);
   const lang = useSyncExternalStore(subscribeLang, getLang, getDefaultLang);
   const [displayLang, setDisplayLang] = useState<Lang>(lang);
   const [langPhase, setLangPhase] = useState<Phase>("idle");
@@ -43,6 +44,13 @@ export default function PageClient({ initial }: Props) {
   useEffect(() => {
     const list = timers.current;
     return () => list.forEach(clearTimeout);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/content", { cache: "no-store" })
+      .then((r) => r.json())
+      .then(setContent)
+      .catch(() => {}); // ponytail: keep initial on network fail
   }, []);
 
   const navigate = useCallback(
@@ -86,7 +94,7 @@ export default function PageClient({ initial }: Props) {
     [displayLang, langPhase, phase]
   );
 
-  const tContent = initial[displayLang];
+  const tContent = content[displayLang];
   const paneClass = phase === "idle" ? "pane" : `pane ${phase}-${dir}`;
   const langClass = langPhase !== "idle" ? `lang-${langPhase}` : "";
 
