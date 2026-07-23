@@ -65,7 +65,7 @@ Routes in `app/api/`:
 ## CSS
 
 - No Tailwind — plain CSS in `app/globals.css` (FE only).
-- Design tokens as CSS custom properties: `--violet: #3b82f6`, `--acid: #22d3ee`, `--ink: #0f172a`, `--panel: #1e293b`, `--bone: #e2e8f0`.
+- Design tokens as CSS custom properties: `--violet: #3b82f6` (calm blue), `--acid: #facc15` (energetic yellow), `--ink: #0a0e1a`, `--panel: #111827`, `--bone: #f5f0eb`.
 - Fonts via `next/font/google`: `Archivo Black` (--font-display), `Space Grotesk` (--font-body).
 - Content pane rotation transitions for section nav (desktop). Mobile uses horizontal translateX. Language switch uses horizontal slide+fade.
 - Animations use CSS `@keyframes` + JS timers (not CSS `animation-delay` for sequential logic).

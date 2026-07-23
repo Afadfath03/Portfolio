@@ -1,14 +1,14 @@
 /* ============================================================
-   AFAD FATH — Ocean theme
-   Palette: deep blue × electric cyan
+   AFAD FATH — Navy×Gold theme
+   Palette: calm blue × energetic yellow
    ============================================================ */
 
 :root {
-  --ink: #0f172a;
-  --panel: #1e293b;
-  --bone: #e2e8f0;
+  --ink: #0a0e1a;
+  --panel: #111827;
+  --bone: #f5f0eb;
   --violet: #3b82f6;
-  --acid: #22d3ee;
+  --acid: #facc15;
 
   --font-display: var(--font-archivo), sans-serif;
   --font-body: var(--font-grotesk), sans-serif;
@@ -27,7 +27,7 @@
 html,
 body {
   background:
-    radial-gradient(ellipse 60% 50% at 75% 15%, rgba(59, 130, 246, 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 75% 15%, rgba(59, 130, 246, 0.12), transparent 70%),
     var(--ink);
   color: var(--bone);
   font-family: var(--font-body);
