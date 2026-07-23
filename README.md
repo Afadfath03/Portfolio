@@ -40,7 +40,44 @@ docker compose up -d --build
 ```
 
 Frontend: `http://localhost:3000`  
-Backend API: internal only (`http://be:3000` in Docker network)
+Backend API: internal only (`http://be:8888` in Docker network)
+
+## Local Development (npm, no Docker)
+
+```bash
+# install all dependencies
+npm install
+
+# create env files
+cp Portofolio-BE/.env.example Portofolio-BE/.env
+cp Portofolio-FE/.env.example Portofolio-FE/.env
+# edit Portofolio-BE/.env — set ADMIN_PASSWORD and SESSION_SECRET
+
+# run BE (port 8888) and FE (port 3000) in separate terminals
+npm run dev:be
+npm run dev:fe
+```
+
+Or run them together (background):
+
+```bash
+npm run dev:be & npm run dev:fe
+```
+
+FE auto-proxies `/api/*` to BE via `next.config.ts` rewrites. No CORS issues.
+
+### Build for production (no Docker)
+
+```bash
+npm run build:be
+npm run build:fe
+
+# start BE (port 8888)
+cd Portofolio-BE && PORT=8888 npm start
+
+# start FE (port 3000)
+cd Portofolio-FE && npm start
+```
 
 ## Environment Variables
 
