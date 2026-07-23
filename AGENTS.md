@@ -17,6 +17,14 @@ FE fetches from BE via HTTP. FE proxies `/api/*` to BE using `next.config.ts` re
 
 **CRITICAL:** FE and BE share no code at runtime. Do NOT import from the other service. The only contract is the API response shape at `/api/content` and `/api/content/[section]`.
 
+## Pages (FE)
+
+- `/` — Homepage (SPA with Nav + animated section transitions)
+- `/admin` — Admin login
+- `/admin/hero|about|works|contact` — Admin per-section editors
+- `/*` **unmatched routes** — `app/not-found.tsx` (standalone 404 page, no Nav/i18n)
+- 404 page is a static Server Component outside the SPA shell — uses `rise` animation and `BACK HOME` link
+
 ## Language & i18n
 
 - Bilingual EN/ID via a flat dict in `app/i18n.ts`. Type `Dict = typeof en`.
