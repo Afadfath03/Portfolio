@@ -595,6 +595,19 @@ a {
 /* ---------- responsive ---------- */
 
 @media (max-width: 768px) {
+  @keyframes exit-cw {
+    to { transform: translateX(-40px); opacity: 0; }
+  }
+  @keyframes enter-cw {
+    from { transform: translateX(40px); opacity: 0; }
+  }
+  @keyframes exit-ccw {
+    to { transform: translateX(40px); opacity: 0; }
+  }
+  @keyframes enter-ccw {
+    from { transform: translateX(-40px); opacity: 0; }
+  }
+
   .layout {
     flex-direction: column;
   }
@@ -633,6 +646,11 @@ a {
   .section {
     padding-bottom: 120px;
   }
+
+  .pane.exit-cw { animation-duration: 200ms; }
+  .pane.enter-cw { animation-duration: 300ms; }
+  .pane.exit-ccw { animation-duration: 200ms; }
+  .pane.enter-ccw { animation-duration: 300ms; }
 
   .hero-burst {
     top: 4%;
