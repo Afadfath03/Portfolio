@@ -2,7 +2,7 @@
 
 Bilingual portfolio (EN/ID) with a self-hosted admin panel.
 
-## Architecture
+## 1. Architecture
 
 Two independent Next.js services in one repo:
 
@@ -11,7 +11,7 @@ Two independent Next.js services in one repo:
 
 FE proxies `/api/*` to BE via Next.js rewrites. No shared code at runtime.
 
-## Tech Stack
+## 2. Tech Stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack, standalone output)
 - **Language:** TypeScript
@@ -20,7 +20,7 @@ FE proxies `/api/*` to BE via Next.js rewrites. No shared code at runtime.
 - **Auth:** HMAC-SHA256 signed cookie (7 days)
 - **Fonts:** Archivo Black (display) + Space Grotesk (body)
 
-## Quick Start
+## 3. Quick Start
 
 ```bash
 cp Portofolio-BE/.env.example Portofolio-BE/.env
@@ -34,7 +34,7 @@ docker compose up -d --build
 - Frontend: `http://localhost:8887`
 - Backend API: `http://localhost:8888` (internal in Docker)
 
-## Local Development (npm)
+## 4. Local Development (npm)
 
 ```bash
 npm install
@@ -46,7 +46,7 @@ npm run dev:fe
 
 FE auto-proxies `/api/*` to BE via `next.config.ts` rewrites.
 
-### Production build (no Docker)
+### 4.1 Production Build (no Docker)
 
 ```bash
 npm run build:be && npm run build:fe
@@ -54,9 +54,9 @@ cd Portofolio-BE && PORT=8888 npm start
 cd Portofolio-FE && npm start
 ```
 
-## Environment Variables
+## 5. Environment Variables
 
-### BE (`Portofolio-BE/.env`)
+### 5.1 BE (`Portofolio-BE/.env`)
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -64,13 +64,13 @@ cd Portofolio-FE && npm start
 | `SESSION_SECRET` | Yes | `ADMIN_PASSWORD` | HMAC signing key for session cookie |
 | `DB_PATH` | No | `data/portfolio.db` | SQLite file path |
 
-### FE (`Portofolio-FE/.env`)
+### 5.2 FE (`Portofolio-FE/.env`)
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `BE_URL` | No | `http://localhost:8888` | BE API URL |
 
-## API Endpoints
+## 6. API Endpoints
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
@@ -80,7 +80,7 @@ cd Portofolio-FE && npm start
 | POST | `/api/auth/login` | No | Login (sets cookie) |
 | POST | `/api/auth/logout` | Yes | Logout (clears cookie) |
 
-## Admin Panel
+## 7. Admin Panel
 
 Located at `/admin`. Login with `ADMIN_PASSWORD`. Sections:
 
@@ -91,7 +91,7 @@ Located at `/admin`. Login with `ADMIN_PASSWORD`. Sections:
 
 Side-by-side EN/ID columns with per-item sync buttons. Image URLs validated via check button.
 
-## Docker
+## 8. Docker
 
 ```bash
 # both services
@@ -106,7 +106,7 @@ docker compose up -d --build be
 
 DB data persists in `Portofolio-BE/data/` volume mount.
 
-## Project Structure
+## 9. Project Structure
 
 ```
 ├── docker-compose.yml          # Run both services
@@ -133,6 +133,6 @@ DB data persists in `Portofolio-BE/data/` volume mount.
     └── public/
 ```
 
-## License
+## 10. License
 
 MIT
