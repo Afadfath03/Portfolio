@@ -31,11 +31,15 @@ export default function FieldPair({
       <div className="admin-pair">
         <div className="admin-col">
           <label>EN</label>
-          {textarea ? (
-            <textarea value={enValue} onChange={(e) => onEnChange(e.target.value)} rows={rows} />
-          ) : (
-            <input value={enValue} onChange={(e) => onEnChange(e.target.value)} />
-          )}
+          <div className="admin-input-wrap">
+            {textarea ? (
+              <textarea value={enValue} onChange={(e) => onEnChange(e.target.value)} rows={rows} />
+            ) : (
+              <input value={enValue} onChange={(e) => onEnChange(e.target.value)} />
+            )}
+            {checkResult === "ok" && <span className="admin-check-indicator ok">✓</span>}
+            {checkResult === "error" && <span className="admin-check-indicator err">✗</span>}
+          </div>
         </div>
         <div className="admin-sync-btns">
           <button type="button" title="Copy EN → ID" onClick={() => onIdChange(enValue)}>
@@ -47,11 +51,15 @@ export default function FieldPair({
         </div>
         <div className="admin-col">
           <label>ID</label>
-          {textarea ? (
-            <textarea value={idValue} onChange={(e) => onIdChange(e.target.value)} rows={rows} />
-          ) : (
-            <input value={idValue} onChange={(e) => onIdChange(e.target.value)} />
-          )}
+          <div className="admin-input-wrap">
+            {textarea ? (
+              <textarea value={idValue} onChange={(e) => onIdChange(e.target.value)} rows={rows} />
+            ) : (
+              <input value={idValue} onChange={(e) => onIdChange(e.target.value)} />
+            )}
+            {checkResult === "ok" && <span className="admin-check-indicator ok">✓</span>}
+            {checkResult === "error" && <span className="admin-check-indicator err">✗</span>}
+          </div>
         </div>
         {onCheck && (
           <div className="admin-sync-btns">
@@ -59,13 +67,11 @@ export default function FieldPair({
               type="button"
               title="Check image"
               className="admin-check-btn"
-              disabled={checking}
+              disabled={checking || (!enValue && !idValue)}
               onClick={onCheck}
             >
               {checking ? "…" : "🔗"}
             </button>
-            {checkResult === "ok" && <span className="admin-check-ok">✓</span>}
-            {(checkResult === "error" || (!enValue && !idValue)) && <span className="admin-check-err">✗</span>}
           </div>
         )}
       </div>

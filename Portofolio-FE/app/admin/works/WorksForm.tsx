@@ -95,16 +95,18 @@ export default function WorksForm({ en, id }: Props) {
                   rows={3}
                 />
                 <div className="admin-input-row">
-                  <input
-                    value={item.image || ""}
-                    onChange={(e) => update({ ...item, image: e.target.value })}
-                    placeholder="Image URL"
-                  />
-                  <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
+                  <div className="admin-input-wrap">
+                    <input
+                      value={item.image || ""}
+                      onChange={(e) => update({ ...item, image: e.target.value })}
+                      placeholder="Image URL"
+                    />
+                    {checkResults[key] === "ok" && <span className="admin-check-indicator ok">✓</span>}
+                    {checkResults[key] === "error" && <span className="admin-check-indicator err">✗</span>}
+                  </div>
+                  <button type="button" className="admin-check-btn" disabled={checkIdx === key || !item.image} onClick={() => handleCheckItem(key, item.image || "")}>
                     {checkIdx === key ? "…" : "🔗"}
                   </button>
-                  {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
-                  {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
                 {[0, 1].map((li) => (
                   <div className="admin-input-row" key={li}>
@@ -166,16 +168,18 @@ export default function WorksForm({ en, id }: Props) {
                   rows={3}
                 />
                 <div className="admin-input-row">
-                  <input
-                    value={item.image || ""}
-                    onChange={(e) => update({ ...item, image: e.target.value })}
-                    placeholder="Image URL"
-                  />
-                  <button type="button" className="admin-check-btn" disabled={checkIdx === key} onClick={() => handleCheckItem(key, item.image || "")}>
+                  <div className="admin-input-wrap">
+                    <input
+                      value={item.image || ""}
+                      onChange={(e) => update({ ...item, image: e.target.value })}
+                      placeholder="Image URL"
+                    />
+                    {checkResults[key] === "ok" && <span className="admin-check-indicator ok">✓</span>}
+                    {checkResults[key] === "error" && <span className="admin-check-indicator err">✗</span>}
+                  </div>
+                  <button type="button" className="admin-check-btn" disabled={checkIdx === key || !item.image} onClick={() => handleCheckItem(key, item.image || "")}>
                     {checkIdx === key ? "…" : "🔗"}
                   </button>
-                  {checkResults[key] === "ok" && <span className="admin-check-ok">✓</span>}
-                  {(checkResults[key] === "error" || !item.image) && <span className="admin-check-err">✗</span>}
                 </div>
                 {[0, 1].map((li) => (
                   <div className="admin-input-row" key={li}>

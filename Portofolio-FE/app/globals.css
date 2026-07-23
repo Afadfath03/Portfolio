@@ -921,14 +921,32 @@ a {
   cursor: not-allowed;
 }
 
-.admin-check-ok {
-  color: #22c55e;
-  font-weight: bold;
+.admin-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
-.admin-check-err {
-  color: #ef4444;
+.admin-input-wrap input {
+  width: 100%;
+  padding-right: 2em;
+}
+
+.admin-check-indicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   font-weight: bold;
+  pointer-events: none;
+}
+
+.admin-check-indicator.ok {
+  color: #22c55e;
+}
+
+.admin-check-indicator.err {
+  color: #ef4444;
 }
 
 /* ---------- admin pair (side-by-side EN/ID) ---------- */
