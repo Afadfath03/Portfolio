@@ -30,17 +30,18 @@ const initStmt = db.prepare(`
 initStmt.run();
 
 const seed = () => {
-  const count = db.prepare("SELECT COUNT(*) AS c FROM content").get() as { c: number };
-  if (count.c > 0) return;
-
-  const insert = db.prepare(
-    "INSERT INTO content (section, lang, data) VALUES (?, ?, ?)"
+  const existing = new Set(
+    (db.prepare("SELECT section FROM content").all() as { section: string }[]).map(r => r.section)
   );
+
+  const insert = db.prepare("INSERT OR IGNORE INTO content (section, lang, data) VALUES (?, ?, ?)");
 
   const seedLang = (lang: Lang) => {
     const data = dict[lang];
     (Object.keys(data) as ContentKey[]).forEach((section) => {
-      insert.run(section, lang, JSON.stringify(data[section]));
+      if (!existing.has(section)) {
+        insert.run(section, lang, JSON.stringify(data[section]));
+      }
     });
   };
 

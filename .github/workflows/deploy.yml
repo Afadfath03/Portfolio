@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    if: false # disabled — keep file for reference
     runs-on: ubuntu-latest
     steps:
       - name: SSH & deploy

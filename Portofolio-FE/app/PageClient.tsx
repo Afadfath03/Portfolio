@@ -5,6 +5,9 @@ import Link from "next/link";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Stack from "./sections/Stack";
+import Experience from "./sections/Experience";
+import Education from "./sections/Education";
 import Works from "./sections/Works";
 import Contact from "./sections/Contact";
 import {
@@ -20,8 +23,8 @@ import {
 
 // ponytail: JS timeouts own the timing (robust when tab hidden); CSS keyframes
 // use matching durations in globals.css (.pane.exit-*/.pane.enter-*).
-const T_EXIT = 250;
-const T_ENTER = 400;
+const T_EXIT = 180;
+const T_ENTER = 280;
 const T_LANG_EXIT = 200;
 const T_LANG_ENTER = 300;
 
@@ -138,6 +141,9 @@ export default function PageClient({ initial }: Props) {
             <div className={paneClass}>
               {active === "home" && <Hero t={tContent} visible />}
               {active === "about" && <About t={tContent} visible />}
+              {active === "stack" && <Stack t={tContent} visible />}
+              {active === "experience" && <Experience t={tContent} visible />}
+              {active === "education" && <Education t={tContent} visible />}
               {active === "works" && <Works t={tContent} visible />}
               {active === "contact" && <Contact t={tContent} visible />}
             </div>

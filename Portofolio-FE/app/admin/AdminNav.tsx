@@ -6,6 +6,9 @@ import { usePathname, useRouter } from "next/navigation";
 const sections = [
   { key: "hero", label: "HERO" },
   { key: "about", label: "ABOUT" },
+  { key: "stack", label: "STACK" },
+  { key: "experience", label: "EXPERIENCE" },
+  { key: "education", label: "EDUCATION" },
   { key: "works", label: "WORKS" },
   { key: "contact", label: "CONTACT" },
 ];

@@ -1,0 +1,34 @@
+import type { Dict } from "../i18n";
+
+type Props = {
+  t: Dict;
+  visible: boolean;
+};
+
+export default function Experience({ t, visible }: Props) {
+  return (
+    <section className={`section ${visible ? "is-visible" : ""}`}>
+      <h2 className="sec-title reveal">{t.experience.title}</h2>
+      <p className="exp-heading">{t.experience.heading}</p>
+      <div className="exp-list">
+        {t.experience.items.map((item) => (
+          <article className="exp-card" key={item.role + item.company}>
+            <div className="exp-top">
+              <span className="exp-period">{item.period}</span>
+            </div>
+            <h3 className="exp-role">{item.role}</h3>
+            <p className="exp-company">{item.company}</p>
+            <p>{item.desc}</p>
+            {item.tags.length > 0 && (
+              <div className="exp-tags">
+                {item.tags.map((tag) => (
+                  <span className="exp-tag" key={tag}>{tag}</span>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
