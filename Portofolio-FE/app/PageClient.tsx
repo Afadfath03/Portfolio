@@ -39,6 +39,7 @@ export default function PageClient({ initial }: Props) {
   const [active, setActive] = useState<SectionId>("home");
   const [phase, setPhase] = useState<Phase>("idle");
   const [dir, setDir] = useState<Dir>("cw");
+  const [indicator, setIndicator] = useState<SectionId | null>(null);
   const [content, setContent] = useState(initial);
   const [error, setError] = useState(false);
   const lang = useSyncExternalStore(subscribeLang, getLang, getDefaultLang);
@@ -76,9 +77,11 @@ export default function PageClient({ initial }: Props) {
       }
       setDir(sectionIds.indexOf(id) > sectionIds.indexOf(active) ? "cw" : "ccw");
       setPhase("exit");
+      setIndicator(id);
       timers.current.push(
         setTimeout(() => {
           setActive(id);
+          setIndicator(null);
           setPhase("enter");
           timers.current.push(setTimeout(() => setPhase("idle"), T_ENTER));
         }, T_EXIT)
@@ -136,7 +139,7 @@ export default function PageClient({ initial }: Props) {
     <>
       <main className="layout">
         <div className={`lang-fade-all ${langClass}`}>
-          <Nav t={tContent} active={active} onNavigate={navigate} />
+          <Nav t={tContent} active={active} onNavigate={navigate} indicator={indicator} />
           <div className="content">
             <div className={paneClass}>
               {active === "home" && <Hero t={tContent} visible />}

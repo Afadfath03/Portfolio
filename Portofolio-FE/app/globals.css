@@ -703,13 +703,29 @@ a {
   padding-left: clamp(16px, 2vw, 32px);
 }
 
+.nav-glide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  background: var(--acid);
+  box-shadow: 0 0 12px 3px var(--acid);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 2px;
+  transition: top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.2s ease, opacity 0.15s ease;
+}
+
 .nav-item {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 2.2vw, 2rem);
   background: var(--bone);
   color: var(--ink);
   border: none;
-  padding: 0.25em 0.9em 0.25em 0.6em;
+  padding: 0.25em 0.9em 0.25em 1em;
+  text-align: left;
   cursor: pointer;
   transform: skewX(-10deg);
   transform-origin: left center;
@@ -847,6 +863,8 @@ a {
   .nav-item.active::before {
     display: none;
   }
+
+  .nav-glide { display: none; }
 
   .section {
     padding-bottom: 120px;
