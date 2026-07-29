@@ -2,12 +2,11 @@ import type { Dict } from "../i18n";
 
 type Props = {
   t: Dict;
-  visible: boolean;
 };
 
-export default function Hero({ t, visible }: Props) {
+export default function Hero({ t }: Props) {
   return (
-    <section className={`section ${visible ? "is-visible" : ""}`}>
+    <section className="section is-visible">
       <div className="hero-burst" aria-hidden="true" />
       {t.hero.image && (
         <img className="hero-image reveal" src={t.hero.image} alt="Profile" />

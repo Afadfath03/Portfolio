@@ -142,13 +142,13 @@ export default function PageClient({ initial }: Props) {
           <Nav t={tContent} active={active} onNavigate={navigate} indicator={indicator} />
           <div className="content">
             <div className={paneClass}>
-              {active === "home" && <Hero t={tContent} visible />}
-              {active === "about" && <About t={tContent} visible />}
-              {active === "stack" && <Stack t={tContent} visible />}
-              {active === "experience" && <Experience t={tContent} visible />}
-              {active === "education" && <Education t={tContent} visible />}
-              {active === "works" && <Works t={tContent} visible />}
-              {active === "contact" && <Contact t={tContent} visible />}
+              {active === "home" && <Hero t={tContent} />}
+              {active === "about" && <About t={tContent} />}
+              {active === "stack" && <Stack t={tContent} />}
+              {active === "experience" && <Experience t={tContent} />}
+              {active === "education" && <Education t={tContent} />}
+              {active === "works" && <Works t={tContent} />}
+              {active === "contact" && <Contact t={tContent} />}
             </div>
           </div>
         </div>

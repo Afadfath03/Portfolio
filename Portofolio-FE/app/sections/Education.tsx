@@ -2,12 +2,11 @@ import type { Dict } from "../i18n";
 
 type Props = {
   t: Dict;
-  visible: boolean;
 };
 
-export default function Education({ t, visible }: Props) {
+export default function Education({ t }: Props) {
   return (
-    <section className={`section ${visible ? "is-visible" : ""}`}>
+    <section className="section is-visible">
       <h2 className="sec-title reveal">{t.education.title}</h2>
       <p className="edu-heading reveal">{t.education.heading}</p>
       <div className="edu-list reveal">

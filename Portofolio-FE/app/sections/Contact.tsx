@@ -2,12 +2,11 @@ import type { Dict } from "../i18n";
 
 type Props = {
   t: Dict;
-  visible: boolean;
 };
 
-export default function Contact({ t, visible }: Props) {
+export default function Contact({ t }: Props) {
   return (
-    <section className={`section ${visible ? "is-visible" : ""}`}>
+    <section className="section is-visible">
       <h2 className="sec-title reveal">{t.contact.title}</h2>
       <div className="cc-card reveal">
         <p className="cc-head">{t.contact.heading}</p>

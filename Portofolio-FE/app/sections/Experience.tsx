@@ -2,12 +2,11 @@ import type { Dict } from "../i18n";
 
 type Props = {
   t: Dict;
-  visible: boolean;
 };
 
-export default function Experience({ t, visible }: Props) {
+export default function Experience({ t }: Props) {
   return (
-    <section className={`section ${visible ? "is-visible" : ""}`}>
+    <section className="section is-visible">
       <h2 className="sec-title reveal">{t.experience.title}</h2>
       <p className="exp-heading reveal">{t.experience.heading}</p>
       <div className="exp-list reveal">

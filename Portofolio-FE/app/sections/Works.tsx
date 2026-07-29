@@ -2,12 +2,11 @@ import type { Dict } from "../i18n";
 
 type Props = {
   t: Dict;
-  visible: boolean;
 };
 
-export default function Works({ t, visible }: Props) {
+export default function Works({ t }: Props) {
   return (
-    <section className={`section ${visible ? "is-visible" : ""}`}>
+    <section className="section is-visible">
       <h2 className="sec-title reveal">{t.works.title}</h2>
       <div className="works-grid">
         {t.works.items.map((w) => (
