@@ -9,8 +9,8 @@ export default function Education({ t, visible }: Props) {
   return (
     <section className={`section ${visible ? "is-visible" : ""}`}>
       <h2 className="sec-title reveal">{t.education.title}</h2>
-      <p className="edu-heading">{t.education.heading}</p>
-      <div className="edu-list">
+      <p className="edu-heading reveal">{t.education.heading}</p>
+      <div className="edu-list reveal">
         {t.education.items.map((item) => (
           <article className="edu-card" key={item.degree + item.school}>
             <span className="edu-year">{item.year}</span>
