@@ -724,12 +724,12 @@ a {
   background: var(--bone);
   color: var(--ink);
   border: none;
-  padding: 0.25em 0.9em 0.25em 1em;
+  padding: 0.25em 0.6em 0.25em 0.8em;
   text-align: left;
   cursor: pointer;
   transform: skewX(-10deg);
   transform-origin: left center;
-  clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+  clip-path: polygon(0 0, 100% 0, 99% 100%, 1% 100%);
   position: relative;
   opacity: 0.45;
   width: 100%;
