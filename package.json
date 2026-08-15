@@ -13,5 +13,8 @@
     "build:be": "npm run build -w Portofolio-BE",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true
   }
 }
